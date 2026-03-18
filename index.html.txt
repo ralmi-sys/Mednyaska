@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для самой прекрасной Медни</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-pink: #ffafbd;
+            --dark-pink: #ffc3a0;
+            --text-color: #5d5d5d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--main-pink), var(--dark-pink));
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            max-width: 90%;
+            width: 400px;
+            z-index: 10;
+            border: 2px solid white;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #d63384;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .img-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #compliment-box {
+            min-height: 80px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.5;
+            transition: opacity 0.3s;
+        }
+
+        .main-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            transition: transform 0.2s, background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-btn:hover {
+            background: #ff758f;
+            transform: scale(1.05);
+        }
+
+        .main-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Сердечки на фоне */
+        .heart {
+            position: absolute;
+            color: white;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: move linear infinite;
+        }
+
+        @keyframes move {
+            from { transform: translateY(100vh) scale(0); opacity: 1; }
+            to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="img-container">
+            <img src="https://i.pinimg.com/originals/f4/d2/96/f4d2961b552880f962e8587c704ba96a.png" alt="Cute">
+        </div>
+        <h1>Для Медни ❤️</h1>
+        <div id="compliment-box">Нажми на кнопку, чтобы узнать, что я о тебе думаю...</div>
+        <button class="main-btn" onclick="showCompliment()">МЕДНЯШКА</button>
+    </div>
+
+    <script>
+        const compliments = [
+            "Медни, ты — самое светлое, что есть в моей жизни! ✨",
+            "Медни, твоя улыбка способна растопить любой лед. ❤️",
+            "Самая милая девушка по имени Медни — это ты! 🌸",
+            "Медни, ты моё бесконечное вдохновение. 💖",
+            "Нет никого прекраснее тебя, Медни! 😍",
+            "Медни, ты — мой ангел-хранитель. 👼",
+            "Твои глаза, Медни, светят ярче всех звезд. ✨",
+            "Медни, ты делаешь этот мир лучше просто тем, что ты есть. 🌏",
+            "Ты самая добрая и нежная, Медни! 💞",
+            "Медни, я готов любоваться тобой вечно. 🌹",
+            "Твой голос для меня — самая лучшая музыка, Медни. 🎶",
+            "Медни, ты — мечта, ставшая реальностью. ✨",
+            "Самая очаровательная Медни на свете! 😊",
+            "Медни, ты мое маленькое счастье. 🎀",
+            "Ты — солнце, которое греет меня всегда, Медни. ☀️",
+            "Медни, ты невероятно талантливая и умная! 🧠❤️",
+            "Твоя душа так же прекрасна, как и ты сама, Медни. 💎",
+            "Медни, ты — причина моей самой искренней улыбки. 🥰",
+            "Самая стильная и красивая — это наша Медни! 👗",
+            "Медни, ты — мой самый любимый человек. 🥇",
+            // ... (здесь программно добавим еще много вариантов для примера)
+        ];
+
+        // Дозаполнение до ~100 вариаций
+        const adjectives = ["чудесная", "неповторимая", "сказочная", "волшебная", "искренняя", "завораживающая", "яркая", "милая", "прекрасная", "лучшая"];
+        const emojis = ["❤️", "💖", "✨", "🌸", "💎", "🦋", "🌷", "🐱", "🐥", "🍬"];
+
+        for (let i = 0; i < 80; i++) {
+            const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const emo = emojis[Math.floor(Math.random() * emojis.length)];
+            compliments.push(`Медни, ты просто ${adj}! ${emo}`);
+        }
+
+        function showCompliment() {
+            const box = document.getElementById('compliment-box');
+            box.style.opacity = 0;
+            
+            setTimeout(() => {
+                const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+                box.innerText = randomCompliment;
+                box.style.opacity = 1;
+                createHeart(); // Создаем сердечко при нажатии
+            }, 300);
+        }
+
+        // Функция для создания летающих сердечек
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Создаем немного сердечек при загрузке
+        setInterval(createHeart, 1000);
+    </script>
+</body>
+</html>
